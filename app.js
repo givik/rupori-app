@@ -69,7 +69,7 @@ window.addEventListener('load', function () {
 
     function complete(coor) {
         // Get Data From Server
-        $.ajax({ url: 'http://rudpori.org/?mobile=true'+
+        $.ajax({ url: 'http://rupori.org/?mobile=true'+
                         '&lat='+ coor['lat']
                         + '&lon='+ coor['lon']
                         + '&distance=111149',
