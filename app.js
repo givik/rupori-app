@@ -26,19 +26,15 @@ dataList = "";
 
 window.addEventListener('load', function () {
 
-    // are we running in native app or in a browser?
-    window.isphone = false;
-    if(document.URL.indexOf("http://") === -1 
-        && document.URL.indexOf("https://") === -1) {
-        window.isphone = true;
-    }
+    new FastClick(document.body);
+    ///////////////
+    //document.addEventListener("deviceready", onDeviceReady, true);
+    ///////////////
 
-    if( window.isphone ) {
-        document.addEventListener("deviceready", onDeviceReady, false);
-    } else {
-        onDeviceReady();
-    }
-    
+     $(".container").css({ "height": document.documentElement.clientHeight + "px" });
+     // alert(document.documentElement.clientHeight);
+
+
     function GetGeoLocation() {
         var options = { timeout: 30000, enableHighAccuracy: true };
         navigator.geolocation.getCurrentPosition(GetPosition, PositionError, options);
@@ -51,7 +47,7 @@ window.addEventListener('load', function () {
         complete(coordinates);
     }
     function PositionError() {
-        navigator.notification.alert('Could not find the current location.');
+        $(".loader").after( "<p class='message'>please enable geo location services...</p>" );
     }
     /*function ReverseGeocode(latitude, longitude){
         var reverseGeocoder = new google.maps.Geocoder();
@@ -73,7 +69,7 @@ window.addEventListener('load', function () {
 
     function complete(coor) {
         // Get Data From Server
-        $.ajax({ url: 'http://rupori.org/?mobile=true'+
+        $.ajax({ url: 'http://rudpori.org/?mobile=true'+
                         '&lat='+ coor['lat']
                         + '&lon='+ coor['lon']
                         + '&distance=111149',
@@ -81,23 +77,12 @@ window.addEventListener('load', function () {
                 loadComplete(data);
             },
             error: function() {
-                loadComplete(dataList);
+                $(".loader").after( "<p class='message'>please check internet connection...</p>" );
             } 
         });
     };
 
-    function onDeviceReady() {
-        alert('device ready');
-        var coor = GetGeoLocation();
-    }
-
-    new FastClick(document.body);
-    ///////////////
-    //document.addEventListener("deviceready", onDeviceReady, true);
-    ///////////////
-
-     $(".container").css({ "height": document.documentElement.clientHeight + "px" });
-     // alert(document.documentElement.clientHeight);
+    GetGeoLocation();
 
 });
 
