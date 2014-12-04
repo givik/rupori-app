@@ -26,6 +26,77 @@ dataList = "";
 
 window.addEventListener('load', function () {
 
+    // are we running in native app or in a browser?
+    window.isphone = false;
+    if(document.URL.indexOf("http://") === -1 
+        && document.URL.indexOf("https://") === -1) {
+        window.isphone = true;
+    }
+
+    if( window.isphone ) {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    } else {
+        onDeviceReady();
+    }
+    
+    function GetGeoLocation() {
+        var options = { timeout: 30000, enableHighAccuracy: true };
+        navigator.geolocation.getCurrentPosition(GetPosition, PositionError, options);
+    }
+    function GetPosition(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        // array
+        var coordinates = { lat: latitude, lon: longitude};
+        complete(coordinates);
+    }
+    function PositionError() {
+        navigator.notification.alert('Could not find the current location.');
+    }
+    /*function ReverseGeocode(latitude, longitude){
+        var reverseGeocoder = new google.maps.Geocoder();
+        var currentPosition = new google.maps.LatLng(latitude, longitude);
+        reverseGeocoder.geocode({'latLng': currentPosition}, function(results, status) {
+     
+                if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
+                        navigator.notification.alert('Address : ' + results[0].formatted_address + ',' + 'Type : ' + results[0].types);
+                        }
+                else {
+                        navigator.notification.alert('Unable to detect your address.');
+                        }
+            } else {
+                navigator.notification.alert('Unable to detect your address.');
+            }
+        });
+    }*/
+
+
+    function complete(coor) {
+        console.log('http://rupori.org/?mobile=true'+
+                        '&lat='+ coor['lat']
+                        + '&lon='+ coor['lon']
+                        + '&distance=5000');
+        // Get Data From Server
+        $.ajax({ url: 'http://rupori.org/?mobile=true'+
+                        '&lat='+ coor['lat']
+                        + '&lon='+ coor['lon']
+                        + '&distance=111149',
+            success: function(data) {
+                loadComplete(data);
+            },
+            error: function() {
+                loadComplete(dataList);
+            } 
+        });
+    };
+
+    function onDeviceReady() {
+        alert('device ready');
+        var coor = GetGeoLocation();
+    }
+
+
     new FastClick(document.body);
     ///////////////
     //document.addEventListener("deviceready", onDeviceReady, true);
@@ -33,16 +104,6 @@ window.addEventListener('load', function () {
 
      $(".container").css({ "height": document.documentElement.clientHeight + "px" });
      // alert(document.documentElement.clientHeight);
-
-    // Get Data From Server
-    $.ajax({ url: 'http://rupori.org/problems.json',
-        success: function(data) {
-            loadComplete(data);
-        },
-        error: function() {
-            loadComplete(dataList);
-        } 
-    });
 
 });
 
