@@ -36,7 +36,7 @@ window.addEventListener('load', function () {
 
 
     function GetGeoLocation() {
-        var options = { timeout: 30000, enableHighAccuracy: true };
+        var options = { timeout: 10000, enableHighAccuracy: true };
         navigator.geolocation.getCurrentPosition(GetPosition, PositionError, options);
     }
     function GetPosition(position) {
