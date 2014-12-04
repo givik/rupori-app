@@ -1,4 +1,4 @@
 rupori-app
 ==========
 
-Rupori's mob application
+Rupori's mobile application
