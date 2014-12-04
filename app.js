@@ -31,8 +31,20 @@ window.addEventListener('load', function () {
     //document.addEventListener("deviceready", onDeviceReady, true);
     ///////////////
 
-     $(".container").css({ "height": document.documentElement.clientHeight + "px" });
-     // alert(document.documentElement.clientHeight);
+    $(".container").css({ "height": document.documentElement.clientHeight + "px" });
+    // alert(document.documentElement.clientHeight);
+
+    //  check connection status
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // setInterval(function () {
+    //     if(window.navigator.onLine){
+
+    //     }
+    //     else{
+    //         $(".loader").after( "<p class='message'>please check internet connection...</p>" );
+    //     }
+    // }, 1000);
 
 
     function GetGeoLocation() {
@@ -47,7 +59,7 @@ window.addEventListener('load', function () {
         complete(coordinates);
     }
     function PositionError() {
-        $(".loader").after( "<p class='message'>please enable geo location services...</p>" );
+        $(".loader").after( "<p class='message'>please enable internet and geo location services...</p>" );
     }
     /*function ReverseGeocode(latitude, longitude){
         var reverseGeocoder = new google.maps.Geocoder();
@@ -77,7 +89,6 @@ window.addEventListener('load', function () {
                 loadComplete(data);
             },
             error: function() {
-                $(".loader").after( "<p class='message'>please check internet connection...</p>" );
             } 
         });
     };
