@@ -199,7 +199,7 @@ a {
     margin: 0 auto;
     padding: 5px 0;
     position: relative;
-    font: normal 18px/1em Helvetica, Arial, sans-serif;
+    font: normal 20px/1em Helvetica, Arial, sans-serif;
     color: #EFEFEF;
 }
 .loader:after {

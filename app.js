@@ -71,12 +71,7 @@ window.addEventListener('load', function () {
         });
     }*/
 
-
     function complete(coor) {
-        console.log('http://rupori.org/?mobile=true'+
-                        '&lat='+ coor['lat']
-                        + '&lon='+ coor['lon']
-                        + '&distance=5000');
         // Get Data From Server
         $.ajax({ url: 'http://rupori.org/?mobile=true'+
                         '&lat='+ coor['lat']
@@ -95,7 +90,6 @@ window.addEventListener('load', function () {
         alert('device ready');
         var coor = GetGeoLocation();
     }
-
 
     new FastClick(document.body);
     ///////////////
